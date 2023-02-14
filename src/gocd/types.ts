@@ -27,6 +27,7 @@ export interface GocdPipelineInstance {
   name: string,
   counter: number,
   label: string,
+  scheduled_date: number,
   build_cause: {
     trigger_message: string
   }

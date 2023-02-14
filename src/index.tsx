@@ -6,9 +6,7 @@ import GoCDIndex from "./gocd";
 export default function Command() {
 
   const { push } = useNavigation();
-
   const { GOCDBaseUrl } = getPreferenceValues<GocdPerference>();
-
   const [keyword, setKeyword] = useState('');
 
   return (
@@ -16,10 +14,9 @@ export default function Command() {
       <List.Item title="GOCD" actions={
         <ActionPanel>
           <Action title="Search Pipelines" onAction={() => push(<GoCDIndex />)}/>
-          <Action.OpenInBrowser title="Search Pipelines" url={GOCDBaseUrl}/>
+          <Action.OpenInBrowser title="Open GOCD" url={GOCDBaseUrl}/>
         </ActionPanel>
       }></List.Item>
     </List>
-
   );
 }

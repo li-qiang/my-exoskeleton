@@ -7,15 +7,11 @@ import { GocdPerference } from "./types";
 export default function GoCDIndex() {
 
   const { GOCDBaseUrl } = getPreferenceValues<GocdPerference>();
-
   const { push } = useNavigation();
-
   const [keyword, setKeyword] = useState('');
-
   const { data: board } = CDClient.fetchDashboard();
 
   return (
-
     <List searchText={keyword} onSearchTextChange={setKeyword}>
       {
         board && board._embedded.pipeline_groups.map(group => {

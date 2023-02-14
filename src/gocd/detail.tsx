@@ -1,8 +1,8 @@
-import { Action, ActionPanel, Color, getPreferenceValues, Icon, List } from "@raycast/api";
+import { List } from "@raycast/api";
 import { CDClient } from "./client";
-import { GocdPerference, StageStatus } from "./types";
-
-
+import { StageStatus } from "./types";
+import moment from "moment";
+import { IconMap } from "./constants";
 const calculateStatus = (stages: Array<{ name: string; status: StageStatus }>) => {
   if (!stages) {
     return 'Unknown';
@@ -10,29 +10,6 @@ const calculateStatus = (stages: Array<{ name: string; status: StageStatus }>) =
   const stage = stages.find(s => s.status != 'Passed' && s.status != 'Unknown');
   return stage?.status || 'Passed';
 }
-
-const IconMap: Record<StageStatus, any> = {
-  Passed: {
-    source: Icon.CheckCircle,
-    tintColor: Color.Green
-  },
-  Building: {
-    source: Icon.Hourglass,
-    tintColor: Color.Yellow
-  },
-  Unknown: {
-    source: Icon.LivestreamDisabled,
-    tintColor: Color.SecondaryText
-  },
-  Failed: {
-    source: Icon.MinusCircle,
-    tintColor: Color.Red
-  },
-  Cancelled: {
-    source: Icon.Warning,
-    tintColor: Color.Yellow
-  },
-};
 
 export default function PipelineDetailCommand(pros: { pipelineName: string }) {
 
@@ -44,9 +21,10 @@ export default function PipelineDetailCommand(pros: { pipelineName: string }) {
       history?.pipelines.map(pipelineInstance => {
 
         const status = calculateStatus(pipelineInstance.stages);
+        const runAt = moment(pipelineInstance.scheduled_date).format("yyyy-MM-DD hh:mm:ss");
 
         return <List.Item title={pipelineInstance.label}
-                          subtitle={status}
+                          subtitle={runAt}
                           icon={IconMap[status]}
                           key={pipelineInstance.counter}
                           detail={
@@ -54,6 +32,11 @@ export default function PipelineDetailCommand(pros: { pipelineName: string }) {
                               <List.Item.Detail.Metadata>
                                 <List.Item.Detail.Metadata.Label title="Trigger"
                                                                  text={pipelineInstance.build_cause.trigger_message}/>
+                                <List.Item.Detail.Metadata.Separator/>
+                                {
+                                  pipelineInstance.stages.map(s =>
+                                    <List.Item.Detail.Metadata.Label title={s.name} icon={IconMap[s.status]}/>)
+                                }
                               </List.Item.Detail.Metadata>
                             }/>
                           }
