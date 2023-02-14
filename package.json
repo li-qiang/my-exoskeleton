@@ -12,13 +12,32 @@
   "commands": [
     {
       "name": "index",
-      "title": "Show List and Detail",
+      "title": "OTR",
       "description": "Template for showing a static list and a detail view",
       "mode": "view"
     }
   ],
+  "preferences": [
+    {
+      "name": "GocdPAT",
+      "title": "GOCD PAT",
+      "description": "GOCD Personal Access Token",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "GOCDBaseUrl",
+      "title": "GOCD Base Url",
+      "description": "GOCD Base Url",
+      "type": "textfield",
+      "required": true
+    }
+  ],
   "dependencies": {
-    "@raycast/api": "^1.47.3"
+    "@raycast/api": "^1.47.3",
+    "@raycast/utils": "^1.4.16",
+    "axios": "^1.3.3",
+    "googleapis": "^105.0.0"
   },
   "devDependencies": {
     "@types/node": "18.8.3",
