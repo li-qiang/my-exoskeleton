@@ -3,6 +3,8 @@ import { useState } from "react";
 import { CDClient } from "./gocd/client";
 import PipelineDetailCommand from "./gocd/detail";
 import { GocdPerference } from "./gocd/types";
+import { calculateStatus } from "./gocd/utils";
+import { IconMap } from "./gocd/constants";
 
 export default function GoCDIndex() {
 
@@ -14,25 +16,29 @@ export default function GoCDIndex() {
   return (
     <List searchText={keyword} onSearchTextChange={setKeyword}>
       {
-        board && board._embedded.pipeline_groups.map(group => {
+        board && board._embedded.pipelines
+          .filter(pipeline => pipeline.name.includes(keyword))
+          .map(pipeline => {
 
-          return <List.Section title={group.name} key={group.name}>
-            {
-              group.pipelines.map(pipeline => pipeline.includes(keyword) &&
-                  <List.Item title={pipeline} key={pipeline} actions={
-                    <ActionPanel>
-                      <Action title="Trigger"/>
-                      <Action icon={Icon.Leaf} title="Detail"
-                              shortcut={{ modifiers: ['cmd'], key: 'd' }}
-                              onAction={() => push(<PipelineDetailCommand pipelineName={pipeline}/>)}/>
-                      <Action.OpenInBrowser title="Open in browser"
-                                            shortcut={{ modifiers: ['cmd'], key: 'l' }}
-                                            url={`${GOCDBaseUrl}/go/pipeline/activity/${pipeline}`}/>
-                    </ActionPanel>
-                  }/>)
-            }
-          </List.Section>
-        })
+            const [instance] = pipeline._embedded.instances;
+
+            const pipelineStatus = instance ? calculateStatus(instance._embedded.stages) : 'Unknown';
+
+            return <List.Item icon={IconMap[pipelineStatus]}
+                              title={pipeline.name}
+                              actions={
+                                <ActionPanel>
+                                  <Action title="Trigger"/>
+                                  <Action icon={Icon.Leaf} title="Detail"
+                                          shortcut={{ modifiers: ['cmd'], key: 'd' }}
+                                          onAction={() => push(<PipelineDetailCommand pipelineName={pipeline.name}/>)}/>
+                                  <Action.OpenInBrowser title="Open in browser"
+                                                        shortcut={{ modifiers: ['cmd'], key: 'l' }}
+                                                        url={`${GOCDBaseUrl}/go/pipeline/activity/${pipeline}`}/>
+                                </ActionPanel>
+                              }
+            />
+          })
       }
     </List>
 

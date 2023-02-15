@@ -3,15 +3,6 @@ export interface GocdPerference {
   GOCDBaseUrl: string
 }
 
-export interface GocdBoard {
-  _embedded: {
-    pipeline_groups: Array<{
-      name: string,
-      pipelines: string[]
-    }>
-  }
-}
-
 export interface GocdPipelineStatus {
   "paused": boolean,
   "paused_cause": string | undefined,
@@ -22,6 +13,11 @@ export interface GocdPipelineStatus {
 
 export type StageStatus = 'Building' | 'Passed' | 'Failed' | 'Cancelled' | 'Unknown';
 
+
+export interface PipelineStage {
+  name: string,
+  status: StageStatus,
+}
 
 export interface GocdPipelineInstance {
   name: string,
@@ -39,4 +35,33 @@ export interface GocdPipelineInstance {
 
 export interface GocdPipelineHistory {
   pipelines: Array<GocdPipelineInstance>,
+}
+
+export interface GocdPipeline {
+
+  name: string,
+  last_updated_timestamp: number,
+
+  _embedded: {
+    instances: [{
+      label: string,
+      counter: number,
+      triggered_by: string,
+      scheduled_at: string,
+      _embedded: {
+        stages: PipelineStage[]
+      }
+    }]
+  }
+
+}
+
+export interface GocdBoard {
+  _embedded: {
+    pipeline_groups: Array<{
+      name: string,
+      pipelines: string[]
+    }>,
+    pipelines: Array<GocdPipeline>
+  }
 }

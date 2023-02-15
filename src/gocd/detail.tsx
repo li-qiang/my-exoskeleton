@@ -3,13 +3,8 @@ import { CDClient } from "./client";
 import { StageStatus } from "./types";
 import moment from "moment";
 import { IconMap } from "./constants";
-const calculateStatus = (stages: Array<{ name: string; status: StageStatus }>) => {
-  if (!stages) {
-    return 'Unknown';
-  }
-  const stage = stages.find(s => s.status != 'Passed' && s.status != 'Unknown');
-  return stage?.status || 'Passed';
-}
+import { calculateStatus } from "./utils";
+
 
 export default function PipelineDetailCommand(pros: { pipelineName: string }) {
 
