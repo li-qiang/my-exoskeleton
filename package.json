@@ -11,7 +11,7 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "project",
+      "name": "index",
       "title": "My Project",
       "description": "Template for showing a static list and a detail view",
       "mode": "view"
