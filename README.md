@@ -7,6 +7,14 @@ Reference to [Raycast System Requirement](https://developers.raycast.com/basics/
 ## Install
 
 ```shell
-npm ci && npm run build
+npm install 
+npm run build
+```
+
+## Development
+
+```shell
+npm install
+npm run dev
 ```
  
