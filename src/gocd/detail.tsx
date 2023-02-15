@@ -4,6 +4,7 @@ import { StageStatus } from "./types";
 import moment from "moment";
 import { IconMap } from "./constants";
 import { calculateStatus } from "./utils";
+import { DATETIME_FORMATE } from "../constant/date-format";
 
 
 export default function PipelineDetailCommand(pros: { pipelineName: string }) {
@@ -16,7 +17,7 @@ export default function PipelineDetailCommand(pros: { pipelineName: string }) {
       history?.pipelines.map(pipelineInstance => {
 
         const status = calculateStatus(pipelineInstance.stages);
-        const runAt = moment(pipelineInstance.scheduled_date).format("yyyy-MM-DD hh:mm:ss");
+        const runAt = moment(pipelineInstance.scheduled_date).format(DATETIME_FORMATE);
 
         return <List.Item title={pipelineInstance.label}
                           subtitle={runAt}
