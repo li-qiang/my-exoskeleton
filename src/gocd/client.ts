@@ -4,7 +4,6 @@ import { GOCDAcceptHeaders } from "./constants";
 import { getBearerTokenHeader } from "./utils";
 import { getPreferenceValues } from "@raycast/api";
 
-
 /*
 Reference to GoCD Document **https://api.gocd.org/current/**
  */
