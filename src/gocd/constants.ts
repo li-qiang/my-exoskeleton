@@ -6,7 +6,6 @@ export const GOCDAcceptHeaders = {
   v3: { "Accept": "application/vnd.go.cd.v3+json" },
 }
 
-
 export const IconMap: Record<StageStatus, any> = {
   Passed: {
     source: Icon.CheckCircle,

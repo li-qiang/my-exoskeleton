@@ -1,7 +1,7 @@
 import { Action, ActionPanel, Detail, getPreferenceValues, Icon, List, useNavigation } from "@raycast/api";
 import React, { useState } from "react";
 import { GocdPerference } from "./gocd/types";
-import GoCDIndex from "./gocd";
+import GoCDIndex from "./gocd-pipelines";
 
 export default function Command() {
 

@@ -1,8 +1,8 @@
-import { Action, ActionPanel, Detail, getPreferenceValues, Icon, List, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, getPreferenceValues, Icon, List, useNavigation } from "@raycast/api";
 import { useState } from "react";
-import { CDClient } from "./client";
-import PipelineDetailCommand from "./detail";
-import { GocdPerference } from "./types";
+import { CDClient } from "./gocd/client";
+import PipelineDetailCommand from "./gocd/detail";
+import { GocdPerference } from "./gocd/types";
 
 export default function GoCDIndex() {
 

@@ -11,8 +11,14 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
-      "title": "OTR",
+      "name": "project",
+      "title": "My Project",
+      "description": "Template for showing a static list and a detail view",
+      "mode": "view"
+    },
+    {
+      "name": "gocd-pipelines",
+      "title": "GOCD Pipelines",
       "description": "Template for showing a static list and a detail view",
       "mode": "view"
     }
