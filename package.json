@@ -21,6 +21,12 @@
       "title": "GOCD Pipelines",
       "description": "Template for showing a static list and a detail view",
       "mode": "view"
+    },
+    {
+      "name": "grafana-quick",
+      "title": "Grafana",
+      "description": "Template for showing a static list and a detail view",
+      "mode": "view"
     }
   ],
   "preferences": [
@@ -35,6 +41,20 @@
       "name": "GOCDBaseUrl",
       "title": "GOCD Base Url",
       "description": "GOCD Base Url",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "GrafanaPAT",
+      "title": "Grafana PAT",
+      "description": "Grafana Personal Access Token",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "GrafanaBaseUrl",
+      "title": "Grafana Base Url",
+      "description": "Grafana Base Url",
       "type": "textfield",
       "required": true
     }
