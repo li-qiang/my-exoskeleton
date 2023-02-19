@@ -1,23 +1,62 @@
-import {Action, ActionPanel, getPreferenceValues, Icon, List, useNavigation} from "@raycast/api";
+import {Action, ActionPanel, getPreferenceValues, List} from "@raycast/api";
 import {useState} from "react";
-import {CDClient} from "./gocd/client";
-import PipelineDetailCommand from "./gocd/detail";
-import {GocdPerference, StageStatus} from "./gocd/types";
-import {calculateStatus} from "./gocd/utils";
-import {IconMap} from "./gocd/constants";
 import {Shortcuts} from "./constant/shortcut";
-import moment from "moment";
-import {DATETIME_FORMATE} from "./constant/date-format";
 import {GrafanaPerference} from "./grafana/types";
+import {GrafanaClient} from "./grafana/client";
 
 export default function GrafanaIndex() {
 
     const {GrafanaBaseUrl} = getPreferenceValues<GrafanaPerference>();
-    const {push} = useNavigation();
     const [keyword, setKeyword] = useState('');
-    const [selectedStatus, setStatus] = useState('');
-    const {data: board} = CDClient.fetchDashboard();
+    const [selectedFolder, setFolder] = useState('');
+    const {data: folders} = GrafanaClient.fetchAllFolders()
+    console.log(folders)
 
-    return;
+    return (
+        <List searchText={keyword}
+              onSearchTextChange={setKeyword}
+              searchBarAccessory={
+                  <List.Dropdown tooltip="Dropdown With Folders" onChange={setFolder}>
+                      <List.Dropdown.Item title="All" value=""/>
+                      <List.Dropdown.Item title="OTR Monitor" value="288"/>
+                      {/*<List.Dropdown.Section title="Select Folder">*/}
+                      {/*    {folders?.map((folder) => (*/}
+                      {/*        <List.Dropdown.Item title={folder.title} value={folder.id}/>*/}
+                      {/*    ))}*/}
+                      {/*</List.Dropdown.Section>*/}
+                  </List.Dropdown>
+              }
+        >
+            {
+                folders?.filter(folder => {
+                    console.log(selectedFolder)
+                    if (selectedFolder === "") {
+                        return true
+                    } else if (folder.id === selectedFolder) {
+                        return true
+                    }
+                    return false
+                }).map(folder => {
+                    console.log(folder)
+                    const {data: dashboards} = GrafanaClient.fetchDashboardByFolder(folder.id)
+                    return dashboards?.filter(board => board.title.includes(keyword)).map(board => {
+                        return <List.Item title={board.title}
+                                          key={board.title}
+                                          actions={<ActionPanel>
+
+                                              <Action.OpenInBrowser title="Open in browser"
+                                                                    shortcut={Shortcuts.link}
+                                                                    url={`${GrafanaBaseUrl}${board.url}`}/>
+                                          </ActionPanel>}/>
+
+
+                    });
+                })}
+
+
+        </List>
+
+
+    );
 }
 
