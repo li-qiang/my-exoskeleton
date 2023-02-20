@@ -28,7 +28,7 @@ export default function Command() {
           <Action title="Search Grafana" onAction={() => push(<GrafanaIndex />)}/>
           <Action.OpenInBrowser title="Open Grafana"
                                 shortcut={Shortcuts.link}
-                                url={`${GrafanaBaseUrl}/d/0_cjlqG7k/application-gateway`}/>
+                                url={`${GrafanaBaseUrl}/grafana/?search=open&orgId=1`}/>
         </ActionPanel>
       }></List.Item>
     </List>
