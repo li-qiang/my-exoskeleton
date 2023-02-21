@@ -1,4 +1,4 @@
-import {Action, ActionPanel, getPreferenceValues, List} from "@raycast/api";
+import {Action, ActionPanel, getPreferenceValues, Icon, List} from "@raycast/api";
 import {useState} from "react";
 import {Shortcuts} from "./constant/shortcut";
 import {GrafanaDashboard, GrafanaDashboards, GrafanaPerference} from "./grafana/types";
@@ -42,6 +42,7 @@ export default function GrafanaIndex() {
                                     .map(board => {
                                             return <List.Item title={board.title}
                                                               key={board.title}
+                                                              icon={Icon.Stars}
                                                               actions={<ActionPanel>
                                                                   <Action.OpenInBrowser title="Open in browser"
                                                                                         shortcut={Shortcuts.link}
