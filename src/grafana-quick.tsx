@@ -34,20 +34,26 @@ export default function GrafanaIndex() {
         >
             {
                 folders?.filter(folder => folder.title.includes(selectedFolder))
-                    .map(folder => dashboard_mapper.get(folder.title))
-                    .map(dashboards => {
-                    return dashboards?.filter(board => board.title.toLowerCase().includes(keyword.toLowerCase()))
-                        .map(board => {
-                            return <List.Item title={board.title}
-                                              key={board.title}
-                                              actions={<ActionPanel>
-                                                  <Action.OpenInBrowser title="Open in browser"
-                                                                        shortcut={Shortcuts.link}
-                                                                        url={`${GrafanaBaseUrl}${board.url}`}/>
-                                              </ActionPanel>}/>
-                        })
-                })
+                    .map(folder => {
+                        const dashboards = dashboard_mapper.get(folder.title)
+                        return <List.Section title={folder.title}>
+                            {
+                                dashboards?.filter(board => board.title.toLowerCase().includes(keyword.toLowerCase()))
+                                    .map(board => {
+                                            return <List.Item title={board.title}
+                                                              key={board.title}
+                                                              actions={<ActionPanel>
+                                                                  <Action.OpenInBrowser title="Open in browser"
+                                                                                        shortcut={Shortcuts.link}
+                                                                                        url={`${GrafanaBaseUrl}${board.url}`}/>
+                                                              </ActionPanel>}/>
+                                        }
+                                    )
+                            }
 
+                        </List.Section>
+
+                    })
 
             };
         </List>
