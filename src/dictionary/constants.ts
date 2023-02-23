@@ -3,16 +3,6 @@ import { CollectionDocuments } from "@mysql/xdevapi/types/lib/DevAPI/CollectionA
 export const SCHEMA_NAME = 'exoskeleton';
 export const COLLECTION_NAME = 'dict';
 
-const COLUMNE_MAP = {
-  '英文全称': 'enName',
-  '缩写': 'abbr',
-  '中文名称': 'cnName',
-  '类型': 'type',
-  '相关squad': 'squad',
-  '说明': 'description',
-  '备注': 'remark'
-}
-
 export interface DictionaryRecord {
   '英文全称': string,
   '缩写': string,
@@ -23,7 +13,7 @@ export interface DictionaryRecord {
   '备注': string
 }
 
-export interface DictionaryRow extends CollectionDocuments {
+interface DR  {
   enName: string;
   abbr: string;
   cnName: string;
@@ -33,9 +23,20 @@ export interface DictionaryRow extends CollectionDocuments {
   remark: string;
 }
 
+export type DictionaryRow = CollectionDocuments & DR;
 
-export const toDBRecord = (record: DictionaryRecord): CollectionDocuments => Object.entries(COLUMNE_MAP)
-  .reduce((v, [key, value]) => ({ ...v, [value]: record[key] }), {} as CollectionDocuments);
+const COLUMNE_MAP = {
+  '英文全称': 'enName',
+  '缩写': 'abbr',
+  '中文名称': 'cnName',
+  '类型': 'type',
+  '相关squad': 'squad',
+  '说明': 'description',
+  '备注': 'remark'
+}
+
+export const toDBRecord = (record: DictionaryRecord): DictionaryRow => Object.entries(COLUMNE_MAP)
+  .reduce((v, [key, value]) => ({ ...v, [value]: record[key as keyof DictionaryRecord] }), {})  as DictionaryRow;
 
 export interface DictionaryPreference {
   dictionaryUrl: string;

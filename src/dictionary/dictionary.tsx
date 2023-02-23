@@ -3,16 +3,18 @@ import { usePromise } from "@raycast/utils";
 import { getCollection } from "../utils/mysql";
 import { COLLECTION_NAME, DictionaryPreference, DictionaryRow, SCHEMA_NAME } from "./constants";
 import { useState } from "react";
+import { DocResult } from "@mysql/xdevapi";
+import { AsyncState } from "@raycast/utils/dist/types";
 
 export default function DictionaryCommand() {
 
   const [key, setKey] = useState('');
   const { dictionaryUrl } = getPreferenceValues<DictionaryPreference>();
 
-  const { data }: { data: DictionaryRow[] | undefined } = usePromise(async (url: string, key: string) => {
+  const { data } = usePromise(async (url: string, key: string) => {
       const collection = await getCollection(url, SCHEMA_NAME, COLLECTION_NAME);
 
-      let rows;
+      let rows: DocResult | undefined;
 
       if (key === '') {
         rows = await collection.find().execute();
@@ -25,7 +27,7 @@ export default function DictionaryCommand() {
       return rows.fetchAll();
     },
     [dictionaryUrl, key]
-  );
+  ) as AsyncState<DictionaryRow[]>;
 
   return <List isShowingDetail searchText={key} onSearchTextChange={setKey}>
     {
