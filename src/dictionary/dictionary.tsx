@@ -1,35 +1,60 @@
 import { getPreferenceValues, List } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
-import { getCollection } from "../utils/mysql";
+import { buildExpression, getCollection, Operations } from "../utils/mysql";
 import { COLLECTION_NAME, DictionaryPreference, DictionaryRow, SCHEMA_NAME } from "./constants";
 import { useState } from "react";
-import { DocResult } from "@mysql/xdevapi";
 import { AsyncState } from "@raycast/utils/dist/types";
+
 
 export default function DictionaryCommand() {
 
   const [key, setKey] = useState('');
+  const [selectedType, setType] = useState('');
   const { dictionaryUrl } = getPreferenceValues<DictionaryPreference>();
 
-  const { data } = usePromise(async (url: string, key: string) => {
+  const { data: types } = usePromise(async (url: string) => {
+
+    const collection = await getCollection(url, SCHEMA_NAME, COLLECTION_NAME);
+
+    const typeResults = await collection.find().fields('type').execute();
+
+    const types = typeResults.fetchAll().map(r => r.type as string).reduce((s, r) => ({ ...s, [r]: 1 }), {});
+
+    return Object.keys(types);
+
+  }, [dictionaryUrl]) as AsyncState<string[]>;
+
+  const { data } = usePromise(async (url: string, key: string, type: string) => {
       const collection = await getCollection(url, SCHEMA_NAME, COLLECTION_NAME);
+      const operation = Operations.and(
+        type === '' ? null : Operations.eq('type', ':type'),
+        key === '' ? null : Operations.or(
+          Operations.like('lower(enName)', ':name'),
+          Operations.like('lower(enName)', ':name'),
+          Operations.like('lower(abbr)', ':name'),
+        ),
+      );
 
-      let rows: DocResult | undefined;
-
-      if (key === '') {
-        rows = await collection.find().execute();
-      } else {
-        rows = await collection.find('lower(enName) like :name or cnName like :name or lower(abbr) like :name')
-          .bind("name", `%${key.toLowerCase()}%`)
-          .execute();
-      }
-
+      const ex = buildExpression(operation);
+      const rows = await collection.find(ex)
+        .bind('name', `%${key}%`)
+        .bind('type', type)
+        .execute();
       return rows.fetchAll();
     },
-    [dictionaryUrl, key]
+    [dictionaryUrl, key, selectedType]
   ) as AsyncState<DictionaryRow[]>;
 
-  return <List isShowingDetail searchText={key} onSearchTextChange={setKey}>
+
+  return <List isShowingDetail searchText={key} onSearchTextChange={setKey}
+               searchBarAccessory={
+                 <List.Dropdown tooltip="Dropdown With Items" onChange={setType}>
+                   <List.Dropdown.Item title="All" value=""/>
+                   {
+                     types?.map(t => <List.Dropdown.Item title={t} value={t}/>)
+                   }
+                 </List.Dropdown>
+               }>
     {
       data?.map(r => <List.Item title={r.enName}
                                 subtitle={r.cnName}
