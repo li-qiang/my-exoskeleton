@@ -39,6 +39,7 @@ export default function DictionaryCommand() {
   ) as AsyncState<DictionaryRow[]>;
 
   return <List isShowingDetail searchText={key} onSearchTextChange={setKey}
+               navigationTitle={`Find ${data?.length || 0} Items`}
                searchBarAccessory={
                  <List.Dropdown tooltip="Dropdown With Items" onChange={setType}>
                    <List.Dropdown.Item title="All" value=""/>
