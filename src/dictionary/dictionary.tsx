@@ -5,23 +5,16 @@ import { COLLECTION_NAME, DictionaryPreference, DictionaryRow, SCHEMA_NAME } fro
 import { useState } from "react";
 import { AsyncState } from "@raycast/utils/dist/types";
 
-
 export default function DictionaryCommand() {
-
   const [key, setKey] = useState('');
   const [selectedType, setType] = useState('');
   const { dictionaryUrl } = getPreferenceValues<DictionaryPreference>();
 
   const { data: types } = usePromise(async (url: string) => {
-
     const collection = await getCollection(url, SCHEMA_NAME, COLLECTION_NAME);
-
     const typeResults = await collection.find().fields('type').execute();
-
     const types = typeResults.fetchAll().map(r => r.type as string).reduce((s, r) => ({ ...s, [r]: 1 }), {});
-
     return Object.keys(types);
-
   }, [dictionaryUrl]) as AsyncState<string[]>;
 
   const { data } = usePromise(async (url: string, key: string, type: string) => {
@@ -37,14 +30,13 @@ export default function DictionaryCommand() {
 
       const ex = buildExpression(operation);
       const rows = await collection.find(ex)
-        .bind('name', `%${key}%`)
+        .bind('name', `%${key.toLowerCase()}%`)
         .bind('type', type)
         .execute();
       return rows.fetchAll();
     },
     [dictionaryUrl, key, selectedType]
   ) as AsyncState<DictionaryRow[]>;
-
 
   return <List isShowingDetail searchText={key} onSearchTextChange={setKey}
                searchBarAccessory={
