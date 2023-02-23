@@ -1,6 +1,6 @@
 import { getPreferenceValues, List } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
-import { buildExpression, getCollection, Operations } from "../utils/mysql";
+import { buildExpression, getCollection, Operator } from "../utils/mysql";
 import { COLLECTION_NAME, DictionaryPreference, DictionaryRow, SCHEMA_NAME } from "./constants";
 import { useState } from "react";
 import { AsyncState } from "@raycast/utils/dist/types";
@@ -19,12 +19,12 @@ export default function DictionaryCommand() {
 
   const { data } = usePromise(async (url: string, key: string, type: string) => {
       const collection = await getCollection(url, SCHEMA_NAME, COLLECTION_NAME);
-      const operation = Operations.and(
-        type === '' ? null : Operations.eq('type', ':type'),
-        key === '' ? null : Operations.or(
-          Operations.like('lower(enName)', ':name'),
-          Operations.like('lower(enName)', ':name'),
-          Operations.like('lower(abbr)', ':name'),
+      const operation = Operator.and(
+        type === '' ? null : Operator.eq('type', ':type'),
+        key === '' ? null : Operator.or(
+          Operator.like('lower(enName)', ':name'),
+          Operator.like('lower(enName)', ':name'),
+          Operator.like('lower(abbr)', ':name'),
         ),
       );
 

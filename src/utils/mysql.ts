@@ -1,4 +1,4 @@
-import mysqlx, { Collection } from "@mysql/xdevapi";
+import mysqlx from "@mysql/xdevapi";
 
 export const getCollection = async (url: string, schemaName: string, collectionName: string) => {
   const session = await mysqlx.getSession(url)
@@ -14,7 +14,7 @@ const BOOLEAN_OPERATOR = ['=', 'like', '<>', '>', '<', 'in'] as const;
 
 type BooleanOperator = typeof BOOLEAN_OPERATOR[number];
 
-type singleEx = {
+type BooleanExpression = {
   operator: BooleanOperator,
   values: [string, string];
 
@@ -24,21 +24,19 @@ const COMBINE_OPERATOR = ['and', 'or'] as const;
 
 type CombineOperator = typeof COMBINE_OPERATOR[number];
 
-type combineEx = {
+type CombineExpression = {
   operator: CombineOperator,
-  values: (Ex | null)[];
+  values: (Expression | null)[];
 };
 
-type Ex = singleEx | combineEx;
+type Expression = BooleanExpression | CombineExpression;
 const buildIs = (operators: readonly string[]) => {
   const maps = operators.reduce((s, o) => ({ ...s, [o]: true }), {} as Record<string, boolean>);
-  return (ex: Ex | null): boolean => ex !== null && maps[ex.operator] !== undefined;
+  return (ex: Expression | null): boolean => ex !== null && maps[ex.operator] !== undefined;
 }
-
-const isBooleanEx = buildIs(BOOLEAN_OPERATOR) as (ex: Ex | null) => ex is singleEx;
-const isCombineEx = buildIs(COMBINE_OPERATOR) as (ex: Ex | null) => ex is combineEx;
-
-const buildBooleanExpression = (c: singleEx): string => {
+const isBooleanEx = buildIs(BOOLEAN_OPERATOR) as (ex: Expression | null) => ex is BooleanExpression;
+const isCombineEx = buildIs(COMBINE_OPERATOR) as (ex: Expression | null) => ex is CombineExpression;
+const buildBooleanExpression = (c: BooleanExpression): string => {
   const [prev, next] = c.values;
   return `${prev} ${c.operator} ${next}`;
 };
@@ -47,8 +45,7 @@ function isString(o: any): o is string {
   return (typeof o) === 'string';
 }
 
-export const buildExpression = (ex: Ex | string): string => {
-
+export const buildExpression = (ex: Expression | string): string => {
   if (isString(ex)) {
     return ex;
   }
@@ -59,13 +56,8 @@ export const buildExpression = (ex: Ex | string): string => {
 
   if (isCombineEx(ex)) {
     const validCondition = ex.values.filter(notEmpty);
-
-    if (validCondition.length === 0) {
-      return '';
-    }
-
-    const expression = validCondition.map(e => buildExpression(e)).join(` ${ex.operator} `);
-    return validCondition.length === 1 ? expression : `(${expression})`;
+    const expression = validCondition.map(buildExpression).join(` ${ex.operator} `);
+    return validCondition.length > 1 ? `(${expression})` : expression;
   }
 
   throw new Error('Build expression error');
@@ -74,14 +66,14 @@ export const buildExpression = (ex: Ex | string): string => {
 const booleanOperationBuilder = (operator: BooleanOperator) => (prev: string, next: string) => ({
   operator,
   values: [prev, next]
-} as singleEx);
+} as BooleanExpression);
 
-const combineOperationBuilder = (operator: CombineOperator) => (...values: Array<Ex | null>) => ({
+const combineOperationBuilder = (operator: CombineOperator) => (...values: Array<Expression | null>) => ({
   operator,
   values,
-} as combineEx);
+} as CombineExpression);
 
-export const Operations = {
+export const Operator = {
   eq: booleanOperationBuilder('='),
   like: booleanOperationBuilder('like'),
   and: combineOperationBuilder('and'),
