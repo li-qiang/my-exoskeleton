@@ -14,8 +14,6 @@ export default function GrafanaIndex() {
 
   const dashboard_mapper: Map<string, GrafanaDashboards> = new Map();
 
-  console.log('folders', folders);
-
   folders?.forEach(folder => {
     const { data: dashboards } = GrafanaClient.fetchDashboardByFolder(folder.id)
     dashboard_mapper.set(folder.title, dashboards as GrafanaDashboard[])
