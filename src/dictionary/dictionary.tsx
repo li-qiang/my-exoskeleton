@@ -24,7 +24,7 @@ export default function DictionaryCommand() {
         type === '' ? null : Operator.eq('type', ':type'),
         key === '' ? null : Operator.or(
           Operator.like('lower(enName)', ':name'),
-          Operator.like('lower(enName)', ':name'),
+          Operator.like('lower(cnName)', ':name'),
           Operator.like('lower(abbr)', ':name'),
         ),
       );
