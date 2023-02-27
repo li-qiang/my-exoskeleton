@@ -40,11 +40,9 @@ const buildBooleanExpression = (c: BooleanExpression): string => {
   const [prev, next] = c.values;
   return `${prev} ${c.operator} ${next}`;
 };
-
 function isString(o: any): o is string {
   return (typeof o) === 'string';
 }
-
 export const buildExpression = (ex: Expression | string): string => {
   if (isString(ex)) {
     return ex;
