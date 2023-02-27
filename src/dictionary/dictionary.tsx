@@ -1,9 +1,10 @@
-import { getPreferenceValues, List } from "@raycast/api";
+import { getPreferenceValues, List, ActionPanel } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
 import { buildExpression, getCollection, Operator } from "../utils/mysql";
 import { COLLECTION_NAME, DictionaryPreference, DictionaryRow, SCHEMA_NAME } from "./constants";
 import { useState } from "react";
 import { AsyncState } from "@raycast/utils/dist/types";
+import RequestIssue from "./request-issue";
 
 export default function DictionaryCommand() {
   const [key, setKey] = useState('');
@@ -40,18 +41,29 @@ export default function DictionaryCommand() {
 
   return <List isShowingDetail searchText={key} onSearchTextChange={setKey}
                navigationTitle={`Find ${data?.length || 0} Items`}
+               actions={
+                   <ActionPanel>
+                       <RequestIssue dictName={''}/>
+                   </ActionPanel>
+               }
                searchBarAccessory={
                  <List.Dropdown tooltip="Dropdown With Items" onChange={setType}>
-                   <List.Dropdown.Item title="All" value="" />
+                   <List.Dropdown.Item title="All" value=""/>
                    {
                      types?.map(t => <List.Dropdown.Item title={t} value={t}/>)
                    }
                  </List.Dropdown>
                }>
     {
-      data?.map((r, index) => <List.Item title={r.enName}
+        data?.map(r => <List.Item
+                                key={r.enName}
+                                title={r.enName}
                                 subtitle={r.cnName}
-                                key={r.enName + index}
+                                actions={
+                                    <ActionPanel>
+                                        <RequestIssue dictName={r.enName}/>
+                                    </ActionPanel>
+                                }
                                 detail={
                                   <List.Item.Detail markdown={r.description} metadata={
                                     <List.Item.Detail.Metadata>

@@ -41,3 +41,9 @@ export const toDBRecord = (record: DictionaryRecord): DictionaryRow => Object.en
 export interface DictionaryPreference {
   dictionaryUrl: string;
 }
+
+export interface RequestDictIssue {
+  dictName: string,
+  description: string,
+  yourName: string
+}
