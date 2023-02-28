@@ -42,15 +42,16 @@ export default function DictionaryCommand() {
                navigationTitle={`Find ${data?.length || 0} Items`}
                searchBarAccessory={
                  <List.Dropdown tooltip="Dropdown With Items" onChange={setType}>
-                   <List.Dropdown.Item title="All" value=""/>
+                   <List.Dropdown.Item title="All" value="" />
                    {
                      types?.map(t => <List.Dropdown.Item title={t} value={t}/>)
                    }
                  </List.Dropdown>
                }>
     {
-      data?.map(r => <List.Item title={r.enName}
+      data?.map((r, index) => <List.Item title={r.enName}
                                 subtitle={r.cnName}
+                                key={r.enName + index}
                                 detail={
                                   <List.Item.Detail markdown={r.description} metadata={
                                     <List.Item.Detail.Metadata>

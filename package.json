@@ -3,7 +3,7 @@
   "name": "my-exoskeleton",
   "title": "My Exoskeleton",
   "description": "Development Tools",
-  "icon": "command-icon.png",
+  "icon": "project-manage.png",
   "author": "Qlee",
   "categories": [
     "Developer Tools"
@@ -14,24 +14,29 @@
       "name": "index",
       "title": "My Project",
       "description": "Template for showing a static list and a detail view",
-      "mode": "view"
+      "mode": "view",
+      "icon": "command-project-manage.png"
     },
     {
       "name": "gocd-pipelines",
-      "title": "GOCD Pipelines",
+      "title": "GoCD Pipelines",
       "description": "Template for showing a static list and a detail view",
-      "mode": "view"
+      "mode": "view",
+      "icon": "command-gocd-icon.png"
     },
     {
       "name": "grafana-quick",
       "title": "Grafana",
       "description": "Template for showing a static list and a detail view",
-      "mode": "view"
-    },{
+      "mode": "view",
+      "icon": "command-grafana-icon.png"
+    },
+    {
       "name": "dictionary",
       "title": "Dictionary",
       "description": "Project Dictionary",
-      "mode": "view"
+      "mode": "view",
+      "icon": "command-dictionary-icon_06.png"
     }
   ],
   "preferences": [

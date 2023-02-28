@@ -18,13 +18,13 @@ export default function Command() {
 
   return (
     <List searchText={keyword} onSearchTextChange={setKeyword}>
-      <List.Item title="GOCD" actions={
+      <List.Item title="GoCD" icon="command-gocd-icon.png" actions={
         <ActionPanel>
           <Action title="Search Pipelines" onAction={() => push(<GoCDPipelines />)}/>
           <Action.OpenInBrowser title="Open GOCD" url={GOCDBaseUrl}/>
         </ActionPanel>
       } />
-      <List.Item title="Grafana" actions={
+      <List.Item title="Grafana" icon="command-grafana-icon.png" actions={
         <ActionPanel>
           <Action title="Search Grafana" onAction={() => push(<GrafanaIndex />)}/>
           <Action.OpenInBrowser title="Open Grafana"
@@ -32,7 +32,7 @@ export default function Command() {
                                 url={`${GrafanaBaseUrl}/grafana/?search=open&orgId=1`}/>
         </ActionPanel>
       } />
-      <List.Item title="Dictionary"
+      <List.Item title="Dictionary" icon="command-dictionary-icon_06.png"
                  actions={
                    <ActionPanel>
                      <Action title="Go to dictionary" onAction={() => push(<DictionaryCommand/>)}/>
