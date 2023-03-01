@@ -1,22 +1,55 @@
 import {Action, ActionPanel, Icon, Form, Alert, confirmAlert, showToast, Toast} from "@raycast/api";
-import {RequestDictIssue} from "./constants";
+import {CreateTrelloCard, RequestDictIssue, TrelloListCard} from "./constants";
 import {useState} from "react";
+import {TrelloApiClient, defaultCreateCardListName} from "./client";
 
 function RequestIssueForm(props: { dictName: string }) {
     const [dictionaryName, setDictionaryName] = useState(() => props.dictName);
     const [dictionaryNameContext, setDictionaryNameContext] = useState<string | ''>();
     const [yourName, setYourName] = useState<string | ''>();
 
-    function onChangeDictionaryName(value: string) {
+    const onChangeDictionaryName = (value: string) => {
         setDictionaryName(value);
     }
 
-    function onChangeDictionaryNameContext(value: string) {
+    const onChangeDictionaryNameContext = (value: string) => {
         setDictionaryNameContext(value);
     }
 
-    function onChangeYourName(value: string) {
+    const onChangeYourName = (value: string) => {
         setYourName(value);
+    }
+
+    const submitIssueToTrello = (values: RequestDictIssue) => {
+        TrelloApiClient.getBoardListCards()
+            .then((listCards: Array<TrelloListCard>) => {
+                const defaultListCard =
+                    listCards.find(listCard => listCard.name == defaultCreateCardListName) as TrelloListCard;
+                const createTrelloCard: CreateTrelloCard = {
+                    name: `request dictionary name issue of ${values.dictName}`,
+                    desc: `dictionary name: ${values.dictName} \ncontext: ${values.context} \nsubmitter: ${values.yourName} `,
+                    idList: defaultListCard.id,
+                }
+                TrelloApiClient.createTrelloCard(createTrelloCard)
+                    .then(() => {
+                        showToast({
+                            title: 'Submit Successful!',
+                            style: Toast.Style.Success
+                        });
+                    })
+                    .catch(() => {
+                        showToast({
+                            title: 'Submit Failure!',
+                            style: Toast.Style.Failure
+                        });
+                    })
+            })
+            .catch(() => {
+                showToast({
+                    title: 'Submit Failure!',
+                    style: Toast.Style.Failure
+                });
+            });
     }
 
     async function handleSubmit(values: RequestDictIssue) {
@@ -28,9 +61,7 @@ function RequestIssueForm(props: { dictName: string }) {
                 primaryAction: {
                     title: "OK",
                     onAction: () => {
-                        // while you can register a handler for an action, it's more elegant
-                        // to use the `if (await confirmAlert(...)) { ... }` pattern
-                        console.log("The alert action has been triggered");
+                        submitIssueToTrello(values);
                     },
                 },
             };
@@ -57,9 +88,9 @@ function RequestIssueForm(props: { dictName: string }) {
                 placeholder='Please input the dictionary Name'
                 onChange={(value) => onChangeDictionaryName(value)}
                 value={dictionaryName}
-                defaultValue={props.dictName}/>
+            />
             <Form.TextField
-                id="description"
+                id="context"
                 title="Dictionary Name Issue Context"
                 placeholder='Please input the issue context'
                 onChange={(value) => onChangeDictionaryNameContext(value)}

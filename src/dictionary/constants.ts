@@ -44,6 +44,18 @@ export interface DictionaryPreference {
 
 export interface RequestDictIssue {
   dictName: string,
-  description: string,
+  context: string,
   yourName: string
+}
+
+export interface TrelloListCard {
+  id: string,
+  name: string,
+  idBoard: string,
+}
+
+export interface CreateTrelloCard {
+  name: string,
+  desc: string,
+  idList: string,
 }
