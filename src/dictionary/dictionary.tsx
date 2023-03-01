@@ -55,8 +55,8 @@ export default function DictionaryCommand() {
                  </List.Dropdown>
                }>
     {
-        data?.map(r => <List.Item
-                                key={r.enName}
+        data?.map((r, index) => <List.Item
+                                key={r.enName + index}
                                 title={r.enName}
                                 subtitle={r.cnName}
                                 actions={
