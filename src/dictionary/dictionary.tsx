@@ -43,7 +43,7 @@ export default function DictionaryCommand() {
                navigationTitle={`Find ${data?.length || 0} Items`}
                actions={
                    <ActionPanel>
-                       <RequestIssue dictName={''}/>
+                       <RequestIssue dictName={key}/>
                    </ActionPanel>
                }
                searchBarAccessory={
