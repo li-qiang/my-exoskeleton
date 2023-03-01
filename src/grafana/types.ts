@@ -1,4 +1,4 @@
-export interface GrafanaPerference {
+export interface GrafanaPreference {
     GrafanaPAT: string,
     GrafanaBaseUrl: string
 }

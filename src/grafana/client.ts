@@ -1,13 +1,13 @@
 import {useFetch} from "@raycast/utils";
 import {getBearerTokenHeader} from "./utils";
 import {getPreferenceValues} from "@raycast/api";
-import {GrafanaPerference, GrafanaSimpleFolders, GrafanaDashboards} from "./types";
+import {GrafanaPreference, GrafanaSimpleFolders, GrafanaDashboards} from "./types";
 
 /*
 Reference to Grafana Document **https://grafana.com/docs/grafana/latest/developers/**
  */
 
-const {GrafanaPAT, GrafanaBaseUrl} = getPreferenceValues<GrafanaPerference>();
+const {GrafanaPAT, GrafanaBaseUrl} = getPreferenceValues<GrafanaPreference>();
 
 const fetchAllFolders = () => useFetch<GrafanaSimpleFolders>(`${GrafanaBaseUrl}/grafana/api/folders`, {
     headers: {...getBearerTokenHeader(GrafanaPAT)}

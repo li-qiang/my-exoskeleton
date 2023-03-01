@@ -1,7 +1,7 @@
 import { Action, ActionPanel, getPreferenceValues, List, useNavigation } from "@raycast/api";
 import React, { useState } from "react";
-import { GocdPerference } from "./gocd/types";
-import {GrafanaPerference} from "./grafana/types";
+import { GoCDPreference } from "./gocd/types";
+import {GrafanaPreference} from "./grafana/types";
 import DictionaryCommand from "./dictionary/dictionary";
 import DictionaryLoadCommand from "./dictionary/load";
 import GoCDPipelines from "./gocd-pipelines";
@@ -11,17 +11,17 @@ import GrafanaIndex from "./grafana-quick";
 export default function Command() {
 
   const { push } = useNavigation();
-  const { GOCDBaseUrl } = getPreferenceValues<GocdPerference>();
+  const { GoCDBaseUrl } = getPreferenceValues<GoCDPreference>();
   const [keyword, setKeyword] = useState('');
 
-  const { GrafanaBaseUrl } = getPreferenceValues<GrafanaPerference>();
+  const { GrafanaBaseUrl } = getPreferenceValues<GrafanaPreference>();
 
   return (
     <List searchText={keyword} onSearchTextChange={setKeyword}>
       <List.Item title="GoCD" icon="command-gocd-icon.png" actions={
         <ActionPanel>
           <Action title="Search Pipelines" onAction={() => push(<GoCDPipelines />)}/>
-          <Action.OpenInBrowser title="Open GOCD" url={GOCDBaseUrl}/>
+          <Action.OpenInBrowser title="Open GOCD" url={GoCDBaseUrl}/>
         </ActionPanel>
       } />
       <List.Item title="Grafana" icon="command-grafana-icon.png" actions={

@@ -1,12 +1,12 @@
 import { Action, ActionPanel, getPreferenceValues, Icon, List } from "@raycast/api";
 import { useState } from "react";
 import { Shortcuts } from "../constant/shortcut";
-import { GrafanaDashboard, GrafanaDashboards, GrafanaPerference } from "./types";
+import { GrafanaDashboard, GrafanaDashboards, GrafanaPreference } from "./types";
 import { GrafanaClient } from "./client";
 
 export default function GrafanaIndex() {
 
-    const { GrafanaBaseUrl } = getPreferenceValues<GrafanaPerference>();
+    const { GrafanaBaseUrl } = getPreferenceValues<GrafanaPreference>();
     const [keyword, setKeyword] = useState('');
     const [selectedFolder, setFolder] = useState('');
 

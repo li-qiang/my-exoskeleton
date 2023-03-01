@@ -1,6 +1,6 @@
-export interface GocdPerference {
+export interface GoCDPreference {
   GocdPAT: string,
-  GOCDBaseUrl: string
+  GoCDBaseUrl: string
 }
 
 export interface GocdPipelineStatus {

@@ -2,7 +2,7 @@ import { Action, ActionPanel, getPreferenceValues, Icon, List, useNavigation } f
 import { useState } from "react";
 import { CDClient } from "./client";
 import PipelineDetailCommand from "./detail";
-import { GocdPerference, StageStatus } from "./types";
+import { GoCDPreference } from "./types";
 import { calculateStatus } from "./utils";
 import { IconMap } from "./constants";
 import { Shortcuts } from "../constant/shortcut";
@@ -11,7 +11,7 @@ import { DATETIME_FORMATE } from "../constant/date-format";
 
 export default function GoCDPipelines() {
 
-  const { GOCDBaseUrl } = getPreferenceValues<GocdPerference>();
+  const { GoCDBaseUrl } = getPreferenceValues<GoCDPreference>();
   const { push } = useNavigation();
   const [keyword, setKeyword] = useState('');
   const [selectedStatus, setStatus] = useState('');
@@ -50,7 +50,7 @@ export default function GoCDPipelines() {
                                             onAction={() => push(<PipelineDetailCommand pipelineName={pipeline.name}/>)}/>
                                     <Action.OpenInBrowser title="Open in browser"
                                                           shortcut={Shortcuts.link}
-                                                          url={`${GOCDBaseUrl}/go/pipeline/activity/${pipeline.name}`}/>
+                                                          url={`${GoCDBaseUrl}/go/pipeline/activity/${pipeline.name}`}/>
                                   </ActionPanel>
                                 }
                                 accessories={[{ text: datetime }]}

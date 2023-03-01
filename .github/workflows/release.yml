@@ -17,7 +17,7 @@ jobs:
           npm install
           npm run build
           mv dist my-exoskeleton
-          echo "{ \"version\": \"${{ github.ref_name }}\" }" > my-exoskeleton/version.json
+          echo "{ \"version\": \"${{ github.ref_name }}\" }" > my-exoskeleton/assets/version.json
           zip -q -r my-exoskeleton.zip my-exoskeleton
           mv my-exoskeleton.zip /tmp/my-exoskeleton.zip
 

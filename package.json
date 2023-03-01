@@ -3,7 +3,7 @@
   "name": "my-exoskeleton",
   "title": "My Exoskeleton",
   "description": "Development Tools",
-  "icon": "project-manage.png",
+  "icon": "command-project-manage.png",
   "author": "Qlee",
   "categories": [
     "Developer Tools"
@@ -13,21 +13,21 @@
     {
       "name": "index",
       "title": "My Project",
-      "description": "Template for showing a static list and a detail view",
+      "description": "My Project List",
       "mode": "view",
       "icon": "command-project-manage.png"
     },
     {
       "name": "gocd-pipelines",
       "title": "GoCD Pipelines",
-      "description": "Template for showing a static list and a detail view",
+      "description": "GoCD Pipelines List And Details",
       "mode": "view",
       "icon": "command-gocd-icon.png"
     },
     {
       "name": "grafana-quick",
       "title": "Grafana",
-      "description": "Template for showing a static list and a detail view",
+      "description": "Grafana Quick Link",
       "mode": "view",
       "icon": "command-grafana-icon.png"
     },
@@ -44,33 +44,39 @@
       "name": "GocdPAT",
       "title": "GOCD PAT",
       "description": "GOCD Personal Access Token",
+      "placeholder": "GOCD Personal Access Token",
       "type": "textfield",
       "required": true
     },
     {
-      "name": "GOCDBaseUrl",
+      "name": "GoCDBaseUrl",
       "title": "GOCD Base Url",
       "description": "GOCD Base Url",
+      "placeholder": "https://ci.example.com",
       "type": "textfield",
       "required": true
     },
     {
       "name": "GrafanaPAT",
       "title": "Grafana PAT",
-      "description": "Grafana Personal Access Token",
+      "description": "Grafana API Keys",
+      "placeholder": "Grafana API Keys",
       "type": "textfield",
       "required": true
     },
     {
       "name": "GrafanaBaseUrl",
-      "title": "Grafana Base Url",
+      "title": "Grafana Base URL",
       "description": "Grafana Base Url",
       "type": "textfield",
+      "placeholder": "https://monitor.example.com",
       "required": true
-    },{
+    },
+    {
       "name": "dictionaryUrl",
-      "title": "MySQL Connection for Dictionary",
+      "title": "MySQL Connection For Dictionary",
       "description": "dictionary database url",
+      "placeholder": "mysqlx://username:password@ip:port",
       "type": "textfield",
       "required": true
     }
