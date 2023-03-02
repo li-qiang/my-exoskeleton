@@ -10,7 +10,8 @@ const ExtensionsDirectory = environment.assetsPath + '/../../';
 
 export default function UpdateVersion() {
   const { data: latestRelease } = UpdateVersionClient.fetchLatestRelease()
-  const { version: localVersion } = UpdateVersionClient.fetchLocalVersion()
+  const { version } = UpdateVersionClient.fetchLocalVersion()
+  const [localVersion, setLocalVersion] = useState(version)
   const remoteVersion = latestRelease?.tag_name || DefaultVersion
   const shouldUpdate = latestRelease ? semver.gt(remoteVersion, localVersion) : false;
 
@@ -34,6 +35,7 @@ export default function UpdateVersion() {
     execute: false,
     onData: () => {
       showToast({ style: Toast.Style.Success, title: '版本更新成功！' })
+      setLocalVersion(remoteVersion)
     },
     onError: () => {
       showToast({ style: Toast.Style.Failure, title: '版本更新失败，请查看日志。' })
