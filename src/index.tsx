@@ -7,6 +7,7 @@ import DictionaryLoadCommand from "./dictionary/load";
 import GoCDPipelines from "./gocd-pipelines";
 import { Shortcuts } from "./constant/shortcut";
 import GrafanaIndex from "./grafana-quick";
+import Bookmark from "./bookmark/Bookmark";
 
 export default function Command() {
 
@@ -39,6 +40,12 @@ export default function Command() {
                      <Action title="Load dictionary" onAction={() => push(<DictionaryLoadCommand/>)}/>
                    </ActionPanel>
                  }/>
+        <List.Item title="Bookmark"
+                   actions={
+                       <ActionPanel>
+                           <Action title="Go to bookmark" onAction={() => push(<Bookmark/>)}/>
+                       </ActionPanel>
+                   }/>
     </List>
   );
 }

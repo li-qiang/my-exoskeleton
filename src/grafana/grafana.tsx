@@ -1,21 +1,21 @@
-import { Action, ActionPanel, getPreferenceValues, Icon, List } from "@raycast/api";
-import { useState } from "react";
-import { Shortcuts } from "../constant/shortcut";
-import { GrafanaDashboard, GrafanaDashboards, GrafanaPreference } from "./types";
-import { GrafanaClient } from "./client";
+import {Action, ActionPanel, getPreferenceValues, Icon, List} from "@raycast/api";
+import {useState} from "react";
+import {Shortcuts} from "../constant/shortcut";
+import {GrafanaDashboard, GrafanaDashboards, GrafanaPreference} from "./types";
+import {GrafanaClient} from "./client";
 
 export default function GrafanaIndex() {
 
-    const { GrafanaBaseUrl } = getPreferenceValues<GrafanaPreference>();
+    const {GrafanaBaseUrl} = getPreferenceValues<GrafanaPreference>();
     const [keyword, setKeyword] = useState('');
     const [selectedFolder, setFolder] = useState('');
 
-    const { data: folders } = GrafanaClient.fetchAllFolders()
+    const {data: folders} = GrafanaClient.fetchAllFolders()
 
     const dashboard_mapper: Map<string, GrafanaDashboards> = new Map();
 
     folders?.forEach(folder => {
-        const { data: dashboards } = GrafanaClient.fetchDashboardByFolder(folder.id)
+        const {data: dashboards} = GrafanaClient.fetchDashboardByFolder(folder.id)
         dashboard_mapper.set(folder.title, dashboards as GrafanaDashboard[])
     })
 

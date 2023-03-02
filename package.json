@@ -88,10 +88,18 @@
       "required": true
     },
     {
-      "name": "githubToken",
-      "title": "Github Personal Access Token",
-      "description": "Github Personal Access Token",
-      "placeholder": "Enter Your Github Token",
+      "name": "BookmarkSheetId",
+      "title": "Bookmark google sheet id",
+      "description": "Bookmark google sheet id",
+      "placeholder": "Enter Your google sheet id",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "BookmarkServiceAccountKey",
+      "title": "Bookmark google service account key",
+      "description": "Bookmark google service account key",
+      "placeholder": "Enter Your service account key",
       "type": "textfield",
       "required": true
     }
@@ -103,6 +111,7 @@
     "@types/mysql": "^2.15.21",
     "axios": "^1.3.3",
     "csv-parse": "^5.3.5",
+    "google-auth-library": "^8.7.0",
     "googleapis": "^105.0.0",
     "moment": "^2.29.4",
     "mysql": "^2.18.1",
