@@ -39,7 +39,7 @@
       "icon": "dictionary.png"
     },
     {
-      "name": "check-version-updates",
+      "name": "update-version",
       "title": "Update Version",
       "description": "Update Version",
       "mode": "view",

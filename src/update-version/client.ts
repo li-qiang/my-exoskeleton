@@ -99,7 +99,7 @@ const fetchLocalVersion = (): { version: string } => {
   }
 }
 
-export const CheckVersionUpdatesClient = {
+export const UpdateVersionClient = {
   fetchLatestRelease,
   fetchLocalVersion
 };

@@ -3,14 +3,14 @@ import moment from 'moment';
 import { useState } from 'react';
 import { Action, ActionPanel, Color, Detail, environment, Icon, showToast, Toast } from "@raycast/api";
 import { useExec } from '@raycast/utils';
-import { CheckVersionUpdatesClient } from './client'
+import { UpdateVersionClient } from './client'
 import { DefaultVersion } from "./constant";
 
 const ExtensionsDirectory = environment.assetsPath + '/../../';
 
-export default function CheckVersionUpdates() {
-  const { data: latestRelease } = CheckVersionUpdatesClient.fetchLatestRelease()
-  const { version: localVersion } = CheckVersionUpdatesClient.fetchLocalVersion()
+export default function UpdateVersion() {
+  const { data: latestRelease } = UpdateVersionClient.fetchLatestRelease()
+  const { version: localVersion } = UpdateVersionClient.fetchLocalVersion()
   const remoteVersion = latestRelease?.tag_name || DefaultVersion
   const shouldUpdate = latestRelease ? semver.gt(remoteVersion, localVersion) : false;
 
