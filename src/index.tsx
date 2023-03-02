@@ -32,7 +32,7 @@ export default function Command() {
                                 url={`${GrafanaBaseUrl}/grafana/?search=open&orgId=1`}/>
         </ActionPanel>
       } />
-      <List.Item title="Dictionary" icon="command-dictionary-icon_06.png"
+      <List.Item title="Dictionary" icon="dictionary.png"
                  actions={
                    <ActionPanel>
                      <Action title="Go to dictionary" onAction={() => push(<DictionaryCommand/>)}/>

@@ -1,6 +1,6 @@
 import semver from 'semver'
 import moment from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Action, ActionPanel, Color, Detail, environment, Icon, showToast, Toast } from "@raycast/api";
 import { useExec } from '@raycast/utils';
 import { UpdateVersionClient } from './client'
@@ -13,7 +13,15 @@ export default function UpdateVersion() {
   const { version } = UpdateVersionClient.fetchLocalVersion()
   const [localVersion, setLocalVersion] = useState(version)
   const remoteVersion = latestRelease?.tag_name || DefaultVersion
-  const shouldUpdate = latestRelease ? semver.gt(remoteVersion, localVersion) : false;
+  const [shouldUpdate, setShouldUpdate] = useState(false)
+
+  function getShouldUpdate() {
+    return latestRelease ? semver.gt(remoteVersion, localVersion) : false
+  }
+
+  useEffect(() => {
+    setShouldUpdate(getShouldUpdate())
+  }, [latestRelease, remoteVersion])
 
   const [output, setOutput] = useState<{
       stdout: string;
@@ -51,20 +59,20 @@ export default function UpdateVersion() {
 
   function renderVersionUpdateTips() {
     const item = shouldUpdate ? {
-      value: `发现新版本，请更新至 ${remoteVersion}`,
+      value: `发现新版本，请更新至${remoteVersion}版本`,
       color: Color.Yellow,
       icon: {
         source: Icon.Warning, tintColor: Color.Yellow
       }
     } : {
-      value: '已是目前最新版本!',
+      value: `已是目前最新版本！                     `,
       color: Color.Green,
       icon: {
         source: Icon.CheckCircle, tintColor: Color.Green
       }
     }
 
-    return <Detail.Metadata.TagList title="更新提示:">
+    return localVersion && remoteVersion && <Detail.Metadata.TagList title="更新提示:">
       <Detail.Metadata.TagList.Item text={item.value} icon={item.icon} color={item.color} />
     </Detail.Metadata.TagList>
   }
