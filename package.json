@@ -15,7 +15,7 @@
       "title": "My Project",
       "description": "My Project List",
       "mode": "view",
-      "icon": "command-project-manage.png"
+      "icon": "project-manage_2.png"
     },
     {
       "name": "gocd-pipelines",
@@ -36,7 +36,14 @@
       "title": "Dictionary",
       "description": "Project Dictionary",
       "mode": "view",
-      "icon": "command-dictionary-icon_06.png"
+      "icon": "dictionary.png"
+    },
+    {
+      "name": "check-version-updates",
+      "title": "Update Version",
+      "description": "Update Version",
+      "mode": "view",
+      "icon": "update.png"
     }
   ],
   "preferences": [
@@ -77,6 +84,14 @@
       "title": "MySQL Connection For Dictionary",
       "description": "dictionary database url",
       "placeholder": "mysqlx://username:password@ip:port",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "githubToken",
+      "title": "Github Personal Access Token",
+      "description": "Github Personal Access Token",
+      "placeholder": "Enter Your Github Token",
       "type": "textfield",
       "required": true
     }
