@@ -7,7 +7,7 @@ import DictionaryLoadCommand from "./dictionary/load";
 import GoCDPipelines from "./gocd-pipelines";
 import { Shortcuts } from "./constant/shortcut";
 import GrafanaIndex from "./grafana-quick";
-import Bookmark from "./bookmark/Bookmark";
+import Bookmark from "./bookmark";
 
 export default function Command() {
 

@@ -39,11 +39,10 @@
       "icon": "dictionary.png"
     },
     {
-      "name": "update-version",
-      "title": "Update Version",
-      "description": "Update Version",
-      "mode": "view",
-      "icon": "update.png"
+      "name": "bookmark",
+      "title": "Bookmark",
+      "description": "Project Bookmark",
+      "mode": "view"
     }
   ],
   "preferences": [
