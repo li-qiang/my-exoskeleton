@@ -81,7 +81,7 @@ export default function UpdateVersion() {
         latestRelease && (
           <>
             <Detail.Metadata.Separator />
-            <Detail.Metadata.Label title='' text={{ value: shouldUpdate ? '最新版本信息' : '当前版本信息', color: Color.PrimaryText }} />
+            <Detail.Metadata.Label title='' text={{ value: shouldUpdate ? '新版本信息' : '当前版本信息', color: Color.PrimaryText }} />
             <Detail.Metadata.Label title='版本号:' text={{ value: remoteVersion, color: Color.SecondaryText }} />
             <Detail.Metadata.Label title='发布时间:' text={{ value: moment(latestRelease?.published_at).format('YYYY-MM-DD HH:mm:ss'), color: Color.SecondaryText }} />
             <Detail.Metadata.Link title="链接:" target={latestRelease.html_url} text={latestRelease.html_url} />
