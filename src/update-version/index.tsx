@@ -49,7 +49,7 @@ export default function UpdateVersion() {
 
   function renderVersionUpdateTips() {
     const item = shouldUpdate ? {
-      value: `发现新版本，请更新至${remoteVersion}版本`,
+      value: `发现新版本，请更新至 ${remoteVersion}`,
       color: Color.Yellow,
       icon: {
         source: Icon.Warning, tintColor: Color.Yellow
