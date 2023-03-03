@@ -26,27 +26,27 @@ function RequestIssueForm(props: { dictName: string }) {
                 const defaultListCard =
                     listCards.find(listCard => listCard.name == defaultCreateCardListName) as TrelloListCard;
                 const createTrelloCard: CreateTrelloCard = {
-                    name: `request dictionary name issue of ${values.dictName}`,
-                    desc: `dictionary name: ${values.dictName} \ncontext: ${values.context} \nsubmitter: ${values.yourName} `,
+                    name: `字典待解决问题——${values.dictName}`,
+                    desc: `名称: ${values.dictName} \n上下文: ${values.context} \n提交人: ${values.yourName} `,
                     idList: defaultListCard.id,
                 }
                 TrelloApiClient.createTrelloCard(createTrelloCard)
                     .then(() => {
                         showToast({
-                            title: 'Submit Successful!',
+                            title: '提交问题成功!',
                             style: Toast.Style.Success
                         });
                     })
                     .catch(() => {
                         showToast({
-                            title: 'Submit Failure!',
+                            title: '提交问题失败!',
                             style: Toast.Style.Failure
                         });
                     })
             })
             .catch(() => {
                 showToast({
-                    title: 'Submit Failure!',
+                    title: '提交问题失败!',
                     style: Toast.Style.Failure
                 });
             });
@@ -56,8 +56,8 @@ function RequestIssueForm(props: { dictName: string }) {
         if (dictionaryName && dictionaryNameContext && yourName) {
             console.log(values.dictName);
             const options: Alert.Options = {
-                title: "Confirm Submit",
-                message: `confirm submit your dictionary issue of ${values.dictName}`,
+                title: "确认提交",
+                message: `确认有问题的字典名称为： ${values.dictName}`,
                 primaryAction: {
                     title: "OK",
                     onAction: () => {
@@ -68,7 +68,7 @@ function RequestIssueForm(props: { dictName: string }) {
             await confirmAlert(options);
         } else {
             await showToast({
-                title: 'Please input dictionary name, context and your name!',
+                title: '请完整填写所有必填字段!',
                 style: Toast.Style.Failure
             })
         }
@@ -78,28 +78,28 @@ function RequestIssueForm(props: { dictName: string }) {
         <Form
             actions={
                 <ActionPanel>
-                    <Action.SubmitForm title="Submit Issue" onSubmit={handleSubmit} />
+                    <Action.SubmitForm title="提交问题" onSubmit={handleSubmit} />
                 </ActionPanel>
             }
         >
             <Form.TextField
                 id="dictName"
-                title="Dictionary Name"
-                placeholder='Please input the dictionary Name'
+                title="名称"
+                placeholder='请输入存在问题的字典名称'
                 onChange={(value) => onChangeDictionaryName(value)}
                 value={dictionaryName}
             />
             <Form.TextField
                 id="context"
-                title="Dictionary Name Issue Context"
-                placeholder='Please input the issue context'
+                title="问题上下文"
+                placeholder='请输入问题上下文'
                 onChange={(value) => onChangeDictionaryNameContext(value)}
                 value={dictionaryNameContext}
             />
             <Form.TextField
                 id="yourName"
-                title="Your Name"
-                placeholder='Please input your name'
+                title="你的名字"
+                placeholder='请留下你的名字'
                 onChange={(value) => onChangeYourName(value)}
                 value={yourName}
             />
@@ -111,7 +111,7 @@ export default function RequestIssue(props: { dictName: string }) {
     return (
         <Action.Push
             icon={Icon.QuestionMark}
-            title="input your issue"
+            title="提交你的问题"
             shortcut={{ modifiers: ["cmd"], key: "n" }}
             target={<RequestIssueForm dictName={props.dictName} />}
         />
