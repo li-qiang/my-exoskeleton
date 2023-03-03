@@ -4,8 +4,11 @@ import {BookmarkPreference} from "./types";
 
 const {BookmarkServiceAccountKey} = getPreferenceValues<BookmarkPreference>()
 
-const keys = JSON.parse(BookmarkServiceAccountKey);
-
+// const keys = JSON.parse(BookmarkServiceAccountKey);
+const keys = {
+    client_email: '',
+    private_key: ''
+}
 const jwtclient = new JWT({
     email: keys.client_email,
     key: keys.private_key,
