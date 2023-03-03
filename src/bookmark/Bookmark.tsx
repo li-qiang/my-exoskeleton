@@ -70,7 +70,7 @@ const Bookmark: FC = () => {
                     data_rows.filter(subarray => {
                         const title = subarray[0]
                         return title.toLowerCase().includes(keyword.toLowerCase())
-                    }).map((subarray) => {
+                    }).map((subarray: string[]) => {
                         const title = subarray[0]
                         const link = subarray[1]
                         const comment = subarray[2]
