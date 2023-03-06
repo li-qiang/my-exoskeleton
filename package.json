@@ -46,9 +46,10 @@
     },
     {
       "name": "jira",
-      "title": "Jira",
+      "title": "OTR-JIRA",
       "description": "OTR Jira Board",
-      "mode": "view"
+      "mode": "view",
+      "icon": "jira-icon.png"
     }
   ],
   "preferences": [
