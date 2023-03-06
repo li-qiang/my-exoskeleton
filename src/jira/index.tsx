@@ -19,6 +19,8 @@ const getStatusColor = (status: JiraStatus): Color => {
     return statusColorMapping[status.name];
 }
 
+const otrJiraBoardBaseLink = 'https://itsc-jira.mercedes-benz.com.cn/jira/browse/';
+
 export default function JiraIndex() {
     const [issues, setIssues] = useState<JiraIssue[]>([]);
 
@@ -29,10 +31,10 @@ export default function JiraIndex() {
             });
     }, []);
 
-    function Actions(props: { title: string, link: string }) {
+    function Actions(props: { issueKey: string, link: string }) {
         return (
-            <ActionPanel title={props.title}>
-                {props.link && <Action.OpenInBrowser url={`https://zchengb.top/api/t/${props.link}`}/>}
+            <ActionPanel title={props.issueKey}>
+                {props.link && <Action.OpenInBrowser url={props.link}/>}
             </ActionPanel>
         );
     }
@@ -40,6 +42,7 @@ export default function JiraIndex() {
     function IssueItem(props: { jiraIssue: JiraIssue }) {
         const jiraDetailField: JiraDetailField = props.jiraIssue.fields;
         const displayName: string = jiraDetailField.assignee?.displayName || 'Unassigned';
+        const issueKey = props.jiraIssue.key;
         return (
             <List.Item
                 icon={{
@@ -73,6 +76,7 @@ export default function JiraIndex() {
                         }
                     }
                 ]}
+                actions={<Actions issueKey={issueKey} link={`${otrJiraBoardBaseLink}${issueKey}`}/>}
             />
         );
     }
