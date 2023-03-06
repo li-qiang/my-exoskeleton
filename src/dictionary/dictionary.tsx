@@ -50,7 +50,7 @@ export default function DictionaryCommand() {
                  <List.Dropdown tooltip="Dropdown With Items" onChange={setType}>
                    <List.Dropdown.Item title="All" value=""/>
                    {
-                     types?.map(t => <List.Dropdown.Item title={t} value={t}/>)
+                     types?.map((t, index) => <List.Dropdown.Item key={index} title={t} value={t}/>)
                    }
                  </List.Dropdown>
                }>
