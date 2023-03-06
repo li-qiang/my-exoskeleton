@@ -43,6 +43,12 @@
       "title": "Bookmark",
       "description": "Project Bookmark",
       "mode": "view"
+    },
+    {
+      "name": "jira",
+      "title": "Jira",
+      "description": "OTR Jira Board",
+      "mode": "view"
     }
   ],
   "preferences": [
@@ -99,6 +105,14 @@
       "title": "Bookmark google service account key",
       "description": "Bookmark google service account key",
       "placeholder": "Enter Your service account key",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "otrJiraToken",
+      "title": "OTR Jira board access token",
+      "description": "OTR Jira board access token",
+      "placeholder": "Enter Your OTR JIRA board access key",
       "type": "textfield",
       "required": true
     }
