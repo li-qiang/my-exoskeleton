@@ -1,6 +1,6 @@
 import {Action, ActionPanel, Color, Image, List} from "@raycast/api";
 import {useEffect, useState} from "react";
-import {JiraIssue, JiraStatus} from "./types";
+import {JiraDetailField, JiraIssue, JiraStatus} from "./types";
 import {JiraClient} from "./client";
 
 
@@ -40,28 +40,33 @@ export default function JiraIndex() {
     }
 
     function IssueItem(props: { jiraIssue: JiraIssue }) {
+        const jiraDetailField: JiraDetailField = props.jiraIssue.fields;
+        const displayName: string = jiraDetailField.assignee?.displayName || 'Unassigned';
         return (
             <List.Item
-                icon={props.jiraIssue.fields.issuetype.iconUrl}
-                title={props.jiraIssue.fields.summary ?? "No title"}
+                icon={{
+                    source: jiraDetailField.issuetype.iconUrl,
+                    mask: Image.Mask.RoundedRectangle
+                }}
+                title={jiraDetailField.summary ?? "No title"}
                 subtitle={props.jiraIssue.key}
                 accessories={[
                     {
                         text: {
-                            value: props.jiraIssue.fields.status.name,
-                            color: getStatusColor(props.jiraIssue.fields.status)
+                            value: jiraDetailField.status.name,
+                            color: getStatusColor(jiraDetailField.status)
                         }
                     },
                     {
                         text: {
-                            value: new Date(props.jiraIssue.fields.created).getFullYear()?.toString() || '',
+                            value: new Date(jiraDetailField.created).getFullYear()?.toString() || '',
                             color: Color.SecondaryText
                         }
                     },
                     {
-                        icon: {
-                            source: props.jiraIssue.fields.assignee?.avatarUrls["24x24"] || defaultAvatar,
-                            mask: Image.Mask.Circle,
+                        tag: {
+                            value: displayName,
+                            color: Color.Orange
                         }
                     }
                 ]}
