@@ -27,6 +27,7 @@ export interface JiraDetailField {
     issuetype: JiraIssueType,
     summary: string
     status: JiraStatus,
+    priority: IssuePriority,
     created: string
 }
 
@@ -50,4 +51,9 @@ export interface AvatarUrls {
     "24x24": string,
     "32x32": string,
     "48x48": string,
+}
+
+export interface IssuePriority {
+    name: string,
+    iconUrl: string
 }

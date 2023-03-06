@@ -19,8 +19,6 @@ const getStatusColor = (status: JiraStatus): Color => {
     return statusColorMapping[status.name];
 }
 
-const defaultAvatar = 'https://itsc-jira.mercedes-benz.com.cn/jira/secure/useravatar?size=xsmall&avatarId=10341';
-
 export default function JiraIndex() {
     const [issues, setIssues] = useState<JiraIssue[]>([]);
 
@@ -67,6 +65,11 @@ export default function JiraIndex() {
                         tag: {
                             value: displayName,
                             color: Color.Orange
+                        }
+                    },
+                    {
+                        icon: {
+                            source: jiraDetailField.priority.iconUrl
                         }
                     }
                 ]}
