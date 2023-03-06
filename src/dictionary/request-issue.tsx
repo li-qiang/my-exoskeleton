@@ -1,12 +1,30 @@
-import {Action, ActionPanel, Icon, Form, Alert, confirmAlert, showToast, Toast} from "@raycast/api";
-import {CreateTrelloCard, RequestDictIssue, TrelloListCard} from "./constants";
-import {useState} from "react";
-import {TrelloApiClient, defaultCreateCardListName} from "./client";
+import {
+    Action,
+    ActionPanel,
+    Icon,
+    Form,
+    Alert,
+    confirmAlert,
+    showToast,
+    Toast,
+    getPreferenceValues
+} from "@raycast/api";
+import {
+    CONFIG_COLLECTION_NAME,
+    CreateTrelloCard, DictionaryPreference,
+    RequestDictIssue,
+    SCHEMA_NAME, TrelloConfig,
+    TrelloListCard
+} from "./constants";
+import {useEffect, useState} from "react";
+import {TrelloApiClient} from "./client";
+import {buildExpression, getCollection, Operator} from "../utils/mysql";
 
 function RequestIssueForm(props: { dictName: string }) {
     const [dictionaryName, setDictionaryName] = useState(() => props.dictName);
     const [dictionaryNameContext, setDictionaryNameContext] = useState<string | ''>();
     const [yourName, setYourName] = useState<string | ''>();
+    const [trelloConfig, setTrelloConfig] = useState<TrelloConfig | any>();
 
     const onChangeDictionaryName = (value: string) => {
         setDictionaryName(value);
@@ -20,17 +38,45 @@ function RequestIssueForm(props: { dictName: string }) {
         setYourName(value);
     }
 
+    const { dictionaryUrl } = getPreferenceValues<DictionaryPreference>();
+
+
+    useEffect(() => {
+        const queryTrelloConfigData = async () => {
+            const collection = await getCollection(dictionaryUrl, SCHEMA_NAME, CONFIG_COLLECTION_NAME);
+            const operation = Operator.and(
+                Operator.eq('configName', ':configName'),
+            );
+
+            const ex = buildExpression(operation);
+            const rows = await collection.find(ex)
+                .bind('configName', 'trello')
+                .execute();
+            const result = rows.fetchOne() as TrelloConfig;
+            setTrelloConfig(result)
+        };
+        queryTrelloConfigData();
+    }, [])
+
     const submitIssueToTrello = (values: RequestDictIssue) => {
-        TrelloApiClient.getBoardListCards()
+        TrelloApiClient.getBoardListCards(
+            trelloConfig.trelloBaseUrl,
+            trelloConfig.apiKey,
+            trelloConfig.apiToken,
+            trelloConfig.boardId)
             .then((listCards: Array<TrelloListCard>) => {
                 const defaultListCard =
-                    listCards.find(listCard => listCard.name == defaultCreateCardListName) as TrelloListCard;
+                    listCards.find(listCard => listCard.name == trelloConfig.defaultListCardName) as TrelloListCard;
                 const createTrelloCard: CreateTrelloCard = {
                     name: `字典待解决问题——${values.dictName}`,
                     desc: `名称: ${values.dictName} \n上下文: ${values.context} \n提交人: ${values.yourName} `,
                     idList: defaultListCard.id,
                 }
-                TrelloApiClient.createTrelloCard(createTrelloCard)
+                TrelloApiClient.createTrelloCard(
+                    trelloConfig.trelloBaseUrl,
+                    trelloConfig.apiKey,
+                    trelloConfig.apiToken,
+                    createTrelloCard)
                     .then(() => {
                         showToast({
                             title: '提交问题成功!',
@@ -54,7 +100,6 @@ function RequestIssueForm(props: { dictName: string }) {
 
     async function handleSubmit(values: RequestDictIssue) {
         if (dictionaryName && dictionaryNameContext && yourName) {
-            console.log(values.dictName);
             const options: Alert.Options = {
                 title: "确认提交",
                 message: `确认有问题的字典名称为： ${values.dictName}`,

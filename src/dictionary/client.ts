@@ -1,13 +1,6 @@
 import fetch from "node-fetch";
 import {CreateTrelloCard} from "./constants";
 
-const trelloAPIBaseUrl = 'https://api.trello.com/1';
-const apiKey = '78c8532ccf8ea1c9dd67dfb839de0327';
-const apiToken = 'ed1073f504032ba6be68a45d747f91dc94fa5680f65cdd1d634f4d5ad864cb7e';
-const boardId = 'giZXWam9';
-export const defaultCreateCardListName = 'TODO';
-
-
 const requestP = (url: string, options= {} ): Promise<any> => {
     console.log(Object.assign({}, options));
     return new Promise((res, rej) => {
@@ -28,18 +21,14 @@ const requestP = (url: string, options= {} ): Promise<any> => {
         })
 };
 
-const buildTrelloApiUrl = (url: string) => {
-    return `${trelloAPIBaseUrl}${url}key=${apiKey}&token=${apiToken}`;
+const getBoardListCards = (trelloAPIBaseUrl: string, apiKey: string, apiToken: string, boardId: string) => {
+    const url = `${trelloAPIBaseUrl}/boards/${boardId}/lists?key=${apiKey}&token=${apiToken}`;
+    return requestP(url);
 }
 
-const getBoardListCards = () => {
-    const url = `/boards/${boardId}/lists?`;
-    return requestP(buildTrelloApiUrl(url));
-}
-
-const createTrelloCard = (createTrelloCard: CreateTrelloCard) => {
-    const url = `/cards?idList=${createTrelloCard.idList}&`;
-    return requestP(buildTrelloApiUrl(url), {
+const createTrelloCard = (trelloAPIBaseUrl: string, apiKey: string, apiToken: string, createTrelloCard: CreateTrelloCard) => {
+    const url = `${trelloAPIBaseUrl}/cards?idList=${createTrelloCard.idList}&key=${apiKey}&token=${apiToken}`;
+    return requestP(url, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

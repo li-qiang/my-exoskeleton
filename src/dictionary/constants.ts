@@ -2,6 +2,7 @@ import { CollectionDocuments } from "@mysql/xdevapi/types/lib/DevAPI/CollectionA
 
 export const SCHEMA_NAME = 'exoskeleton';
 export const COLLECTION_NAME = 'dict';
+export const CONFIG_COLLECTION_NAME = 'config'
 
 export interface DictionaryRecord {
   '英文全称': string,
@@ -41,6 +42,17 @@ export const toDBRecord = (record: DictionaryRecord): DictionaryRow => Object.en
 export interface DictionaryPreference {
   dictionaryUrl: string;
 }
+
+interface TR {
+  configName: string,
+  trelloBaseUrl: string,
+  apiKey: string,
+  apiToken: string,
+  boardId: string,
+  defaultListCardName: string
+}
+
+export type TrelloConfig = CollectionDocuments & TR;
 
 export interface RequestDictIssue {
   dictName: string,
