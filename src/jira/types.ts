@@ -23,7 +23,7 @@ export interface JiraIssue {
 }
 
 export interface JiraDetailField {
-    assignee: string,
+    assignee: JiraAssignee,
     issuetype: JiraIssueType,
     summary: string
     status: JiraStatus,
@@ -37,4 +37,17 @@ export interface JiraIssueType {
 
 export interface JiraStatus {
     name: 'Assign' | 'Backlog' | 'Dev - To Do' | 'Released' | 'Dev - Done' | 'Ready for Deploy' | 'Pending' | 'In UAT' | 'Testing'
+}
+
+export interface JiraAssignee {
+    name: string,
+    displayName: string,
+    avatarUrls: AvatarUrls
+}
+
+export interface AvatarUrls {
+    "16x16": string,
+    "24x24": string,
+    "32x32": string,
+    "48x48": string,
 }
