@@ -1,4 +1,4 @@
-import {Action, ActionPanel, Color, List} from "@raycast/api";
+import {Action, ActionPanel, Color, Image, List} from "@raycast/api";
 import {useEffect, useState} from "react";
 import {JiraIssue, JiraStatus} from "./types";
 import {JiraClient} from "./client";
@@ -19,6 +19,8 @@ const getStatusColor = (status: JiraStatus): Color => {
     return statusColorMapping[status.name];
 }
 
+const defaultAvatar = 'https://itsc-jira.mercedes-benz.com.cn/jira/secure/useravatar?size=xsmall&avatarId=10341';
+
 export default function JiraIndex() {
     const [issues, setIssues] = useState<JiraIssue[]>([]);
 
@@ -26,8 +28,6 @@ export default function JiraIndex() {
         JiraClient.fetchIssuesByCurrentUser()
             .then((jiraIssues) => {
                 setIssues(jiraIssues.issues);
-
-                console.log('issues', new Set(jiraIssues.issues.map(issue => issue.fields.status.name)))
             });
     }, []);
 
@@ -58,6 +58,12 @@ export default function JiraIndex() {
                             color: Color.SecondaryText
                         }
                     },
+                    {
+                        icon: {
+                            source: props.jiraIssue.fields.assignee?.avatarUrls["24x24"] || defaultAvatar,
+                            mask: Image.Mask.Circle,
+                        }
+                    }
                 ]}
             />
         );
