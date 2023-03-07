@@ -13,8 +13,8 @@ const getJwt = () => {
             key: keys.private_key,
             scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
         });
-    }catch (e) {
-        return null
+    } catch (e) {
+        return new JWT()
     }
 }
 
