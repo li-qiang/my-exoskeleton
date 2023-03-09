@@ -1,6 +1,8 @@
 export interface BookmarkPreference {
     BookmarkSheetId: string,
-    BookmarkServiceAccountKey: string
+    BookmarkOauthClientKey: string
+    BookmarkOauthToken: string
+
 }
 
 

@@ -102,10 +102,18 @@
       "required": true
     },
     {
-      "name": "BookmarkServiceAccountKey",
-      "title": "Bookmark google service account key",
-      "description": "Bookmark google service account key",
-      "placeholder": "Enter Your service account key",
+      "name": "BookmarkOauthClientKey",
+      "title": "Bookmark google oauth client key",
+      "description": "Bookmark google  oauth client key",
+      "placeholder": "Enter Your oauth client key",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "BookmarkOauthToken",
+      "title": "Bookmark google oauth token",
+      "description": "Bookmark google oauth token",
+      "placeholder": "Enter Your oauth token token",
       "type": "textfield",
       "required": true
     },
