@@ -1,13 +1,13 @@
 import { Action, ActionPanel, getPreferenceValues, List, useNavigation } from "@raycast/api";
 import React, { useState } from "react";
-import { GoCDPreference } from "./gocd/types";
-import { GrafanaPreference } from "./grafana/types";
-import DictionaryCommand from "./dictionary/dictionary";
-import DictionaryLoadCommand from "./dictionary/load";
-import GoCDPipelines from "./gocd-pipelines";
-import { Shortcuts } from "./constant/shortcut";
-import GrafanaIndex from "./grafana-quick";
-import Bookmark from "./bookmark";
+import { GoCDPreference } from "../gocd/types";
+import { GrafanaPreference } from "../grafana/types";
+import DictionaryCommand from "../dictionary/dictionary";
+import DictionaryLoadCommand from "../dictionary/load";
+import GoCDPipelines from "../../gocd-pipelines";
+import { Shortcuts } from "../../constants/shortcut";
+import GrafanaIndex from "../../grafana-quick";
+import Bookmark from "../../bookmark";
 
 export default function Command() {
 

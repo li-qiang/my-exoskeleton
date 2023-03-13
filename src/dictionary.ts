@@ -1,3 +1,3 @@
-import DictionaryCommand from './dictionary/dictionary';
+import DictionaryCommand from './commands/dictionary/dictionary';
 
 export default DictionaryCommand;

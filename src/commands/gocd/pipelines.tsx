@@ -5,9 +5,9 @@ import PipelineDetailCommand from "./detail";
 import { GoCDPreference } from "./types";
 import { calculateStatus } from "./utils";
 import { IconMap } from "./constants";
-import { Shortcuts } from "../constant/shortcut";
+import { Shortcuts } from "../../constants/shortcut";
 import moment from "moment";
-import { DATETIME_FORMATE } from "../constant/date-format";
+import { DATETIME_FORMATE } from "../../constants/date-format";
 
 export default function GoCDPipelines() {
 

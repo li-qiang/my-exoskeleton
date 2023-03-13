@@ -1,5 +1,5 @@
 export interface JiraPreference {
-    otrJiraToken: string
+    jiraToken: string
 }
 
 export interface JiraIssues {

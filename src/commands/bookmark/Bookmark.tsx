@@ -2,7 +2,7 @@ import {Action, ActionPanel, getPreferenceValues, List} from "@raycast/api";
 import {fetchAllSheetsInfo, fetchSheetValues} from "./client";
 import {FC, useEffect, useReducer, useState} from "react";
 import {BookmarkPreference, sheetProperties} from "./types";
-import {Shortcuts} from "../constant/shortcut";
+import {Shortcuts} from "../../constants/shortcut";
 
 const Bookmark: FC = () => {
 

@@ -19,7 +19,7 @@ const getStatusColor = (status: JiraStatus): Color => {
     return statusColorMapping[status.name];
 }
 
-const otrJiraBoardBaseLink = 'https://itsc-jira.mercedes-benz.com.cn/jira/browse/';
+const jiraBoardBaseLink = '';
 
 export default function JiraIndex() {
     const [issues, setIssues] = useState<JiraIssue[]>([]);
@@ -76,7 +76,7 @@ export default function JiraIndex() {
                         }
                     }
                 ]}
-                actions={<Actions issueKey={issueKey} link={`${otrJiraBoardBaseLink}${issueKey}`}/>}
+                actions={<Actions issueKey={issueKey} link={`${jiraBoardBaseLink}${issueKey}`}/>}
             />
         );
     }

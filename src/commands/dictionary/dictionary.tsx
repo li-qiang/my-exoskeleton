@@ -1,6 +1,6 @@
 import { getPreferenceValues, List, ActionPanel } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
-import { buildExpression, getCollection, Operator } from "../utils/mysql";
+import { buildExpression, getCollection, Operator } from "../../utils/mysql";
 import { COLLECTION_NAME, DictionaryPreference, DictionaryRow, SCHEMA_NAME } from "./constants";
 import { useState } from "react";
 import { AsyncState } from "@raycast/utils/dist/types";

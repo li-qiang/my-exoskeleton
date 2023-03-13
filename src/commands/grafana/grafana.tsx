@@ -1,6 +1,6 @@
 import {Action, ActionPanel, getPreferenceValues, Icon, List} from "@raycast/api";
 import {useState} from "react";
-import {Shortcuts} from "../constant/shortcut";
+import {Shortcuts} from "../../constants/shortcut";
 import {GrafanaDashboard, GrafanaDashboards, GrafanaPreference} from "./types";
 import {GrafanaClient} from "./client";
 

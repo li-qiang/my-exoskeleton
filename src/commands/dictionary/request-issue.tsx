@@ -18,7 +18,7 @@ import {
 } from "./constants";
 import {useEffect, useState} from "react";
 import {TrelloApiClient} from "./client";
-import {buildExpression, getCollection, Operator} from "../utils/mysql";
+import {buildExpression, getCollection, Operator} from "../../utils/mysql";
 
 function RequestIssueForm(props: { dictName: string }) {
     const [dictionaryName, setDictionaryName] = useState(() => props.dictName);

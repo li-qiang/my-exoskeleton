@@ -1,7 +1,7 @@
 import { Action, ActionPanel, Detail, Form, getPreferenceValues } from "@raycast/api";
 import { useEffect, useState } from "react";
-import { readCSV } from "../utils/file";
-import { getCollection } from "../utils/mysql";
+import { readCSV } from "../../utils/file";
+import { getCollection } from "../../utils/mysql";
 import { COLLECTION_NAME, DictionaryPreference, DictionaryRecord, SCHEMA_NAME, toDBRecord } from "./constants";
 import { Collection } from "@mysql/xdevapi";
 

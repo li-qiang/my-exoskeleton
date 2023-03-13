@@ -3,7 +3,7 @@
   "name": "my-exoskeleton",
   "title": "My Exoskeleton",
   "description": "Development Tools",
-  "icon": "project-manage_2.png",
+  "icon": "icons/project-manage_2.png",
   "author": "Qlee",
   "categories": [
     "Developer Tools"
@@ -11,32 +11,25 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
-      "title": "My Project",
-      "description": "My Project List",
-      "mode": "view",
-      "icon": "project-manage_2.png"
-    },
-    {
       "name": "gocd-pipelines",
       "title": "GoCD Pipelines",
       "description": "GoCD Pipelines List And Details",
       "mode": "view",
-      "icon": "command-gocd-icon.png"
+      "icon": "icons/command-gocd-icon.png"
     },
     {
       "name": "grafana-quick",
       "title": "Grafana",
       "description": "Grafana Quick Link",
       "mode": "view",
-      "icon": "command-grafana-icon.png"
+      "icon": "icons/command-grafana-icon.png"
     },
     {
       "name": "dictionary",
       "title": "Dictionary",
       "description": "Project Dictionary",
       "mode": "view",
-      "icon": "dictionary.png"
+      "icon": "icons/dictionary.png"
     },
     {
       "name": "bookmark",
@@ -46,10 +39,10 @@
     },
     {
       "name": "jira",
-      "title": "OTR-JIRA",
-      "description": "OTR Jira Board",
+      "title": "JIRA",
+      "description": "Jira Board Description",
       "mode": "view",
-      "icon": "jira-icon.png"
+      "icon": "icons/jira-icon.png"
     }
   ],
   "preferences": [
@@ -118,10 +111,10 @@
       "required": true
     },
     {
-      "name": "otrJiraToken",
-      "title": "OTR Jira board access token",
-      "description": "OTR Jira board access token",
-      "placeholder": "Enter Your OTR JIRA board access key",
+      "name": "jiraToken",
+      "title": "Jira board access token",
+      "description": "Jira board access token",
+      "placeholder": "Enter Your JIRA board access key",
       "type": "textfield",
       "required": true
     }

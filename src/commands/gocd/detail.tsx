@@ -4,7 +4,7 @@ import { StageStatus } from "./types";
 import moment from "moment";
 import { IconMap } from "./constants";
 import { calculateStatus } from "./utils";
-import { DATETIME_FORMATE } from "../constant/date-format";
+import { DATETIME_FORMATE } from "../../constants/date-format";
 
 
 export default function PipelineDetailCommand(pros: { pipelineName: string }) {

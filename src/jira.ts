@@ -1,3 +1,3 @@
-import JiraCommand from './jira/index';
+import JiraCommand from './commands/jira/index';
 
 export default JiraCommand;
