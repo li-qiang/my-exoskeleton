@@ -63,4 +63,4 @@ npm run fix-lint # 代码校验修复
 ### 字段&函数名
 
 1. 定义 ts 变量或函数名，建议 `首字母小写 + 驼峰 (camelCase)`，例如 userName
-2. 定义 ts 常量，建议 `大写 + 下划线 (upperCase)`，例如 UserName
+2. 定义 ts 常量，建议 `首字母大写 + 驼峰 (CamelCase)`，例如 UserName
