@@ -1,6 +1,6 @@
 import { useFetch } from "@raycast/utils";
 import { GocdBoard, GoCDPreference, GocdPipelineHistory, GocdPipelineStatus } from "./types";
-import { GOCDAcceptHeaders } from "./constants";
+import { GOCDAcceptHeaders } from "../../constants/go-cd";
 import { getBearerTokenHeader } from "./utils";
 import { getPreferenceValues } from "@raycast/api";
 

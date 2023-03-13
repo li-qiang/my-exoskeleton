@@ -2,7 +2,7 @@ import { List } from "@raycast/api";
 import { CDClient } from "./client";
 import { StageStatus } from "./types";
 import moment from "moment";
-import { IconMap } from "./constants";
+import { IconMap } from "../../constants/go-cd";
 import { calculateStatus } from "./utils";
 import { DATETIME_FORMATE } from "../../constants/date-format";
 

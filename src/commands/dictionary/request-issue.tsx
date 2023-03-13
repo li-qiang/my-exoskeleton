@@ -15,7 +15,7 @@ import {
     RequestDictIssue,
     SCHEMA_NAME, TrelloConfig,
     TrelloListCard
-} from "./constants";
+} from "../../constants/dictionary";
 import {useEffect, useState} from "react";
 import {TrelloApiClient} from "./client";
 import {buildExpression, getCollection, Operator} from "../../utils/mysql";

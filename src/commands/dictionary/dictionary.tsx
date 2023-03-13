@@ -1,7 +1,7 @@
 import { getPreferenceValues, List, ActionPanel } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
 import { buildExpression, getCollection, Operator } from "../../utils/mysql";
-import { COLLECTION_NAME, DictionaryPreference, DictionaryRow, SCHEMA_NAME } from "./constants";
+import { COLLECTION_NAME, DictionaryPreference, DictionaryRow, SCHEMA_NAME } from "../../constants/dictionary";
 import { useState } from "react";
 import { AsyncState } from "@raycast/utils/dist/types";
 import RequestIssue from "./request-issue";

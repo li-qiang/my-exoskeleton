@@ -1,4 +1,4 @@
-import { StageStatus } from "./types";
+import { StageStatus } from "../commands/gocd/types";
 import { Color, Icon } from "@raycast/api";
 
 export const GOCDAcceptHeaders = {

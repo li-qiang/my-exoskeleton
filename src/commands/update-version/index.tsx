@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Action, ActionPanel, Color, Detail, environment, Icon, showToast, Toast } from "@raycast/api";
 import { useExec } from '@raycast/utils';
 import { UpdateVersionClient } from './client'
-import { DefaultVersion } from "./constant";
+import { DefaultVersion } from "../../constants/update-version";
 
 const ExtensionsDirectory = environment.assetsPath + '/../../';
 

@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import {CreateTrelloCard} from "./constants";
+import {CreateTrelloCard} from "../../constants/dictionary";
 
 const requestP = (url: string, options= {} ): Promise<any> => {
     console.log(Object.assign({}, options));

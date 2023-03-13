@@ -1,6 +1,6 @@
 import { useFetch } from "@raycast/utils";
 import { environment, getPreferenceValues } from "@raycast/api"
-import { DefaultVersion } from "./constant";
+import { DefaultVersion } from "../../constants/update-version";
 
 const REPOSITORY_API = 'https://api.github.com/repos/li-qiang/my-exoskeleton';
 const { githubToken } = getPreferenceValues()

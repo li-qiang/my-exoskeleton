@@ -4,7 +4,7 @@ import { CDClient } from "./client";
 import PipelineDetailCommand from "./detail";
 import { GoCDPreference } from "./types";
 import { calculateStatus } from "./utils";
-import { IconMap } from "./constants";
+import { IconMap } from "../../constants/go-cd";
 import { Shortcuts } from "../../constants/shortcut";
 import moment from "moment";
 import { DATETIME_FORMATE } from "../../constants/date-format";
